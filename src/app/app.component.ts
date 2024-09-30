@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-declare const html2pdf: any;
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -79,19 +80,23 @@ export class AppComponent {
 
     document.body.appendChild(element);
 
-    var opt = {
-      margin:       1,
-      filename:     'myfile.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    let pdf = new jsPDF('p', 'pt', 'letter');
 
-    // New Promise-based usage:
-    // html2pdf().set(opt).from(element).save();
-    html2pdf(element, opt).run(() => {
+    html2canvas(element).then((canvas) => {
+      var imgData = canvas.toDataURL('image/png');
+      // pdf.html(element, {
+      //   callback: function (doc : any) {
+      //     doc.save('test.pdf');
+      //     // var iframe = document.createElement('iframe');
+      //     // iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
+      //     // document.body.appendChild(iframe);
+      //     // iframe.src = pdf.output('datauristring');
+  
+      //   }
+      // });
+  
       document.body.removeChild(element);
-    });
+    });    
   }
 }
 
