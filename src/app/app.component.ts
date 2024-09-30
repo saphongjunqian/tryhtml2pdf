@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -11,92 +10,102 @@ import html2canvas from 'html2canvas';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Try html2pdf';
+  title = 'Try jsPDF';
 
   onPrint(): void {
-    let element = document.createElement('div');
-    element.innerHTML = `
-<div id="html" style='position: absolute; left: 0; top: 0; bottom: 0; overflow: auto; width: 400px'>
+    let objdiv = document.createElement('div');
 
-		<h1>Html2Pdf</h1>
-		<p>
-			This demo uses Html2Canvas.js to render HTML. <br />Instead of using an HTML canvas however, a canvas
-			wrapper using jsPDF is substituted. The <em>context2d</em> provided by the wrapper calls native PDF
-			rendering methods.
-		</p>
-		<p>A PDF of this page will be inserted into the right margin.</p>
+    // let objdiv = document.createElement('div');
+    // objdiv.classList.add('w-full');
+    // objdiv.style.fontSize = '24px';
+    // objdiv.style.margin = '20px';
 
-		<h2>Colors</h2>
-		<p>
-			<span style='color: red'>red</span> <span style='color: rgb(0, 255, 0)'>rgb(0,255,0)</span> <span
-				style='color: rgba(0, 0, 0, .5)'>rgba(0,0,0,.5)</span> <span style='color: #0000FF'>#0000FF</span> <span
-				style='color: #0FF'>#0FF</span>
-		</p>
+    // // Selected the document
+    // let titlep = document.createElement('p');
+    // titlep.innerText = this.selectedFile?.name!;
+    // objdiv.appendChild(titlep);
+    // // Count of items
+    // let countp = document.createElement('p');
+    // countp.innerText = `Count of items: ${printqueues.length}`;
+    // objdiv.appendChild(countp);
+    // // Date
+    // let datep = document.createElement('p');
+    // datep.innerText = new Date().toLocaleString();
+    // datep.style.paddingBottom = '20px';
+    // objdiv.appendChild(datep);
 
-		<h2>Text Alignment</h2>
-		<div style='text-align: left'>left</div>
-		<div style='text-align: center'>center</div>
-		<div style='text-align: right'>right</div>
+    // let containdiv = document.createElement('div');
+    // containdiv.classList.add('grid'); 
+    // containdiv.classList.add('grid-cols-4');
+    // containdiv.classList.add('gap-4');
+    // objdiv.appendChild(containdiv);
 
-		<h2>Margins and Padding</h2>
-		<div style='background-color: red'>
-			Red
-			<div style='background-color: green; margin: 1em; padding: 1em;'>
-				Green
-				<div style='background-color: blue; margin: 1em'>Blue</div>
-			</div>
-		</div>
+    // for (let qidx = 0; qidx < printqueues.length; qidx++) {
+    //   let qdiv = document.createElement('div');
+    //   qdiv.classList.add('w-full');
+    //   qdiv.innerText = printqueues[qidx].cnword.slice(0, 30);
+    //   containdiv.appendChild(qdiv);
+      
+    //   qdiv = document.createElement('div');
+    //   qdiv.classList.add('w-full');
+    //   qdiv.innerText = '________________________';
+    //   containdiv.appendChild(qdiv);
+    // }
 
-		<h2>Borders</h2>
-		<div style='border: 1px solid black'>Single</div>
-		<hr />
-		<div style='border: 4px double black'>Double</div>
+    // // Splitter
+    // let splitp = document.createElement('p');
+    // splitp.classList.add('w-full');
+    // splitp.style.paddingTop = '40px';
+    // splitp.style.paddingBottom = '40px';
+    // splitp.innerText = '__________________________ANSWER BELOW______________________';
+    // objdiv.appendChild(splitp);
 
-		<h2>Font Style</h2>
-		<div style='font-style: normal'>Normal</div>
-		<div style='font-style: italic'>Italic</div>
-		<div style='font-style: oblique'>Oblique</div>
-		<h2>Lists</h2>
-		<ul>
-			<li>apples</li>
-			<li>oranges</li>
-			<li>pears</li>
-			<li>peaches</li>
-			<li>lemons</li>
-			<li>limes</li>
-		</ul>
+    // // Answer
+    // let awrdiv = document.createElement('div');
+    // awrdiv.classList.add('w-full');
+    // awrdiv.classList.add('grid'); 
+    // awrdiv.classList.add('grid-cols-6');
+    // awrdiv.classList.add('gap-2');
+    // objdiv.appendChild(awrdiv);
 
-		<h2>Font Size</h2>
-		<div style='font-size: 10px'>10px</div>
-		<div style='font-size: 20px'>20px</div>
-		<div style='font-size: 30px'>30px</div>
+    // for (let qidx = 0; qidx < printqueues.length; qidx++) {
+    //   let qdiv = document.createElement('div');
+    //   qdiv.classList.add('w-full');
+    //   qdiv.innerText = printqueues[qidx].enword;
+    //   awrdiv.appendChild(qdiv);
+    // }
 
-		<div style='font-size: 20pt'>20pt</div>
-		<div style='font-size: 1em'>1em</div>
-		<div style='font-size: 2em'>2em</div>
+    // // Finally one.
+    // let finalp = document.createElement('p');
+    // finalp.innerText = 'The End';
+    // finalp.style.paddingBottom = '20px';
+    // objdiv.appendChild(finalp);
 
-	</div>
-      `;
+    // document.body.appendChild(objdiv);
 
-    document.body.appendChild(element);
+	// for (let qidx = 0; qidx < 100; qidx++) {
+	// 	let qdiv = document.createElement('div');
+	// 	qdiv.innerText = `测试 ${qidx}`;
+	// 	objdiv.appendChild(qdiv);
+		
+	// 	qdiv = document.createElement('div');
+	// 	qdiv.innerText = '________________________';
+	// 	objdiv.appendChild(qdiv);
+    // }
 
-    let pdf = new jsPDF('p', 'pt', 'letter');
-
-    html2canvas(element).then((canvas) => {
-      var imgData = canvas.toDataURL('image/png');
-      // pdf.html(element, {
-      //   callback: function (doc : any) {
-      //     doc.save('test.pdf');
-      //     // var iframe = document.createElement('iframe');
-      //     // iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
-      //     // document.body.appendChild(iframe);
-      //     // iframe.src = pdf.output('datauristring');
-  
-      //   }
-      // });
-  
-      document.body.removeChild(element);
-    });    
+	let pdf = new jsPDF('p', 'pt', 'letter');
+	// pdf.addFileToVFS('SIMKAI.ttf', 'SIMKAI.ttf');
+	pdf.addFont('SIMKAI.ttf', 'smikai', 'normal');
+	pdf.setFont('smikai', 'normal');
+	pdf.setFontSize(24);
+	pdf.setLanguage("zh-CN");
+	let linehgt = pdf.getLineHeight();
+	console.log(linehgt);
+	for (let qidx = 0; qidx < 100; qidx++) {
+		pdf.text(`测试 ${qidx}`, 20, 20 + qidx * 20);
+	}
+	pdf.save('test.pdf');
+    //document.body.removeChild(element);
   }
 }
 
